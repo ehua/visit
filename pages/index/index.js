@@ -1,7 +1,6 @@
 //index.js
 //获取应用实例
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
-var qqmapsdk;
 const app = getApp()
 Page({
   data: {
@@ -13,6 +12,38 @@ Page({
   },
 
   clickme:function(){
+    // 实例化腾讯地图API核心类
+    var demo = new QQMapWX({
+      key: 'BXCBZ-FQH6W-VSWRG-O37PI-WIITF-KPF2J' // 必填
+    });
+    //1、获取当前位置坐标
+    wx.getLocation({
+      type: 'wgs84',
+      success: function (res) {
+        var latitude = res.latitude
+        var longitude = res.longitude
+        var speed = res.speed
+        var accuracy = res.accuracy
+        console.log(res);
+        //2、根据坐标获取当前位置名称，显示在顶部:腾讯地图逆地址解析
+        demo.reverseGeocoder({
+          location: {
+            latitude: latitude,
+            longitude: longitude
+          },
+          success: function (res) {
+            console.log(res);
+          },
+          fail: function (res) {
+            console.log(res);
+          },
+          complete: function (res) {
+            console.log(res);
+          }
+        })
+      }
+    });
+
     var _this = this;
     wx.request({
       url: 'https://www.yhacg.com/quiet/list', //仅为示例，并非真实的接口地址
@@ -39,7 +70,7 @@ Page({
   onLoad: function () {
     var _this = this;
     // 实例化腾讯地图API核心类
-    qqmapsdk = new QQMapWX({
+    var qqmapsdk = new QQMapWX({
       key: 'BXCBZ-FQH6W-VSWRG-O37PI-WIITF-KPF2J' // 必填
     });
     //1、获取当前位置坐标

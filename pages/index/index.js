@@ -1,56 +1,15 @@
 //index.js
 //获取应用实例
+var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
+var qqmapsdk;
 const app = getApp()
 Page({
   data: {
-    checkboxItems: [
-      { name: 'USA', value: '美国' },
-      { name: 'CHN', value: '中国', checked: 'true' },
-      { name: 'BRA', value: '巴西' },
-      { name: 'JPN', value: '日本', checked: 'true' },
-      { name: 'ENG', value: '英国' },
-      { name: 'TUR', value: '法国' },
-    ],
-    radioItems:    
-      [
-      { name: 'USA', value: '美国' },
-      { name: 'CHN', value: '中国', checked: 'true' },
-      { name: 'BRA', value: '巴西' },
-      { name: 'JPN', value: '日本' },
-      { name: 'ENG', value: '英国' },
-      { name: 'TUR', value: '法国' },
-    ],
-    hidden: false,
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     data:{},
     canIUse: wx.canIUse('button.open-type.getUserInfo')
-  },
-
-  checkboxChange: function (e) {
-    var checked = e.detail.value
-    var changed = {}
-    for (var i = 0; i < this.data.checkboxItems.length; i++) {
-      if (checked.indexOf(this.data.checkboxItems[i].name) !== -1) {
-        changed['checkboxItems[' + i + '].checked'] = true
-      } else {
-        changed['checkboxItems[' + i + '].checked'] = false
-      }
-    }
-    this.setData(changed)
-  },
-  radioChange: function (e) {
-    var checked = e.detail.value
-    var changed = {}
-    for (var i = 0; i < this.data.radioItems.length; i++) {
-      if (checked.indexOf(this.data.radioItems[i].name) !== -1) {
-        changed['radioItems[' + i + '].checked'] = true
-      } else {
-        changed['radioItems[' + i + '].checked'] = false
-      }
-    }
-    this.setData(changed)
   },
 
   clickme:function(){
@@ -67,9 +26,6 @@ Page({
       },
       success: function (res) {
         _this.setData({data:res.data.data})
-        console.log(res.data)
-
-        console.log(_this.data);
       }
     })
   },
@@ -81,6 +37,28 @@ Page({
     })
   },
   onLoad: function () {
+    var _this = this;
+    // 实例化腾讯地图API核心类
+    qqmapsdk = new QQMapWX({
+      key: 'BXCBZ-FQH6W-VSWRG-O37PI-WIITF-KPF2J' // 必填
+    });
+    //1、获取当前位置坐标
+    wx.getLocation({
+      type:'wgs84',
+      success: function(res) {
+        var latitude = res.latitude
+        var longitude = res.longitude
+        var speed = res.speed
+        var accuracy = res.accuracy
+        console.log(res);
+      }
+    });
+    wx.chooseLocation({
+      success: function(res) {
+        console.log(res);
+      }
+    });
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -115,5 +93,5 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  }
+  },
 })

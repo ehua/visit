@@ -14,8 +14,9 @@
   <view>{{msg}}</view>
   <button bindtap='clickme'>Click</button>
 
-  <view wx:for="{{data}}">
-    <label>{{item.created}}</label>
+  <view wx:for="{{data}}" wx:key="key">
     <text>{{item.text}}</text>
   </view>
+
+  <view>{{address}}</view>
 </view>

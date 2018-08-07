@@ -46,7 +46,7 @@ Page({
 
     var _this = this;
     wx.request({
-      url: 'https://www.yhacg.com/quiet/list', //仅为示例，并非真实的接口地址
+      url: 'https://www.yhacg.com/quiet/list',
       data: {
         start: 0,
         limit: 10
@@ -84,6 +84,7 @@ Page({
         console.log(res);
       }
     });
+    
     wx.chooseLocation({
       success: function(res) {
         console.log(res);

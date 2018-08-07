@@ -2,17 +2,78 @@
 //获取应用实例
 const app = getApp()
 Page({
-
-
-  clickme:function(){
-    this.setData({msg:"Hello World"})
-  },
   data: {
+    checkboxItems: [
+      { name: 'USA', value: '美国' },
+      { name: 'CHN', value: '中国', checked: 'true' },
+      { name: 'BRA', value: '巴西' },
+      { name: 'JPN', value: '日本', checked: 'true' },
+      { name: 'ENG', value: '英国' },
+      { name: 'TUR', value: '法国' },
+    ],
+    radioItems:    
+      [
+      { name: 'USA', value: '美国' },
+      { name: 'CHN', value: '中国', checked: 'true' },
+      { name: 'BRA', value: '巴西' },
+      { name: 'JPN', value: '日本' },
+      { name: 'ENG', value: '英国' },
+      { name: 'TUR', value: '法国' },
+    ],
+    hidden: false,
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
+    data:{},
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
+
+  checkboxChange: function (e) {
+    var checked = e.detail.value
+    var changed = {}
+    for (var i = 0; i < this.data.checkboxItems.length; i++) {
+      if (checked.indexOf(this.data.checkboxItems[i].name) !== -1) {
+        changed['checkboxItems[' + i + '].checked'] = true
+      } else {
+        changed['checkboxItems[' + i + '].checked'] = false
+      }
+    }
+    this.setData(changed)
+  },
+  radioChange: function (e) {
+    var checked = e.detail.value
+    var changed = {}
+    for (var i = 0; i < this.data.radioItems.length; i++) {
+      if (checked.indexOf(this.data.radioItems[i].name) !== -1) {
+        changed['radioItems[' + i + '].checked'] = true
+      } else {
+        changed['radioItems[' + i + '].checked'] = false
+      }
+    }
+    this.setData(changed)
+  },
+
+  clickme:function(){
+    var _this = this;
+    wx.request({
+      url: 'https://www.yhacg.com/quiet/list', //仅为示例，并非真实的接口地址
+      data: {
+        start: 0,
+        limit: 10
+      },
+      method:'post',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        _this.setData({data:res.data.data})
+        console.log(res.data)
+
+        console.log(_this.data);
+      }
+    })
+  },
+  
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({

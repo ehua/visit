@@ -18,12 +18,12 @@
       <!-- <text class="userinfo-nickname">{{userInfo.nickName}}</text> -->
     </block>
   </view>
-  <view class="usermotto">
+  <!-- <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
-  </view>
+  </view> -->
 
   <view>{{msg}}</view>
-  <button bindtap='clickme'>Click</button>
+  <button bindtap="clickme" loading="{{loading}}">loading</button>
 
   <view wx:for="{{data}}" wx:key="key">
     <text>{{item.text}}</text>

@@ -5,6 +5,7 @@ var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 const app = getApp()
 Page({
   data: {
+    loading:false,
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -42,6 +43,9 @@ Page({
     })
   },
   clickme:function(){
+    this.setData({
+      loading: !this.data.loading
+    })
     // 实例化腾讯地图API核心类
     var demo = new QQMapWX({
       key: 'BXCBZ-FQH6W-VSWRG-O37PI-WIITF-KPF2J' // 必填
@@ -84,6 +88,9 @@ Page({
       },
       success: function (res) {
         _this.setData({data:res.data.data})
+        _this.setData({
+          loading: !_this.data.loading
+        })
       }
     })
   },

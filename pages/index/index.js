@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+var order = ['red', 'yellow', 'blue', 'green', 'red']
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 const app = getApp()
 Page({
@@ -8,9 +9,38 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     data:{},
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    imgUrls: [
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+    ],
+    indicatorDots: true,
+    autoplay: true,
+    interval: 5000,
+    duration: 1000
   },
-
+  changeIndicatorDots: function (e) {
+    this.setData({
+      indicatorDots: !this.data.indicatorDots
+    })
+  },
+  changeAutoplay: function (e) {
+    this.setData({
+      autoplay: !this.data.autoplay
+    })
+  },
+  intervalChange: function (e) {
+    this.setData({
+      interval: e.detail.value
+    })
+  },
+  durationChange: function (e) {
+    this.setData({
+      duration: e.detail.value
+    })
+  },
   clickme:function(){
     // 实例化腾讯地图API核心类
     var demo = new QQMapWX({
@@ -35,9 +65,6 @@ Page({
             console.log(res);
           },
           fail: function (res) {
-            console.log(res);
-          },
-          complete: function (res) {
             console.log(res);
           }
         })
@@ -85,11 +112,11 @@ Page({
       }
     });
     
-    wx.chooseLocation({
-      success: function(res) {
-        console.log(res);
-      }
-    });
+    // wx.chooseLocation({
+    //   success: function(res) {
+    //     console.log(res);
+    //   }
+    // });
 
     if (app.globalData.userInfo) {
       this.setData({

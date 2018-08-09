@@ -1,4 +1,6 @@
-<!--index.wxml-->
+<view class='headView'>
+    <input class='headFocus' type='text' placeholder-class='iconfont icon-sousuo'></input>
+</view>
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
   <block wx:for="{{imgUrls}}">
     <swiper-item>
@@ -6,6 +8,21 @@
     </swiper-item>
   </block>
 </swiper>
+<view class="section">
+  <!-- <view class="section__title">flex-direction: row</view> -->
+  <view class="flex-wrp" style="flex-direction:row;">
+    <view class="flex-item bc_green">1</view>
+    <view class="flex-item bc_red">2</view>
+    <view class="flex-item bc_blue">3</view>
+    <view class="flex-item bc_white">4</view>
+  </view>
+  <view class="flex-wrp" style="flex-direction:row;">
+    <view class="flex-item t_tour">出境游</view>
+    <view class="flex-item t_tour">国内游</view>
+    <view class="flex-item t_tour">周边游</view>
+    <view class="flex-item t_tour">港澳游</view>
+  </view>
+</view>
 <!-- <button bindtap="changeIndicatorDots"> indicator-dots </button> -->
 <!-- <button bindtap="changeAutoplay"> autoplay </button> -->
 <!-- <slider bindchange="intervalChange" show-value min="500" max="2000"/> interval -->
@@ -30,4 +47,7 @@
   </view>
 
   <view>{{address}}</view>
+
+  
+  <view class='iconfont icon-sousuo'></view>
 </view>

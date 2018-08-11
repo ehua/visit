@@ -50,6 +50,8 @@ Page({
     var demo = new QQMapWX({
       key: 'BXCBZ-FQH6W-VSWRG-O37PI-WIITF-KPF2J' // 必填
     });
+
+    var _this = this;
     //1、获取当前位置坐标
     wx.getLocation({
       type: 'wgs84',
@@ -66,7 +68,9 @@ Page({
             longitude: longitude
           },
           success: function (res) {
-            console.log(res);
+            _this.setData({
+              address:res.result.address
+            });
           },
           fail: function (res) {
             console.log(res);
